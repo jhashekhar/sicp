@@ -41,3 +41,54 @@
   (fast-mul-iter a b 0))
 
 
+;; Sol 1.21
+(defn divides? [a b]
+  (= (rem b a) 0))
+
+(defn find-divisor [n test-divisor]
+  (cond
+    (> (square test-divisor) n) n
+    (divides? test-divisor n) test-divisor
+    :else (find-divisor n (+ test-divisor 1))))
+
+(defn smallest-divisor [n]
+  (find-divisor n 2))
+
+(defn prime? 
+  [n]
+  (= n (smallest-divisor n)))
+
+;; Sol 1.22
+(defn search-for-primes [low high n]
+ (if (and (< low high) (< n 3)) 
+   (cond (prime? low) (do
+                        (println low)
+                        (recur (+ low 2) high (+ n 1))
+                      )
+   :else (recur (+ low 2) high n))
+))
+
+;; Sol 1.23
+(defn nextn [n]
+  (if (= n 2) 3 (+ n 2)))
+
+(defn modified-find-divisor [n test-divisor]
+  (cond
+    (> (square test-divisor) n) n
+    (divides? (nextn test-divisor) n) test-divisor
+    :else (modified-find-divisor n (+ test-divisor 1))))
+
+(defn modified-smallest-divisor [n]
+  (modified-find-divisor n 2))
+
+
+
+
+
+
+
+
+
+
+
+
